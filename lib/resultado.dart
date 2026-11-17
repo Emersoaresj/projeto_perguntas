@@ -20,10 +20,10 @@ class Resultado extends StatelessWidget {
     ),
       TextButton(
         onPressed: reiniciarQuestionario,
-        child: Text("Jogar Novamente"),
         style: TextButton.styleFrom(
             foregroundColor: Colors.white,
-            backgroundColor: Colors.blue)
+            backgroundColor: Colors.blue),
+        child: Text("Jogar Novamente")
       )
     ],
     );
