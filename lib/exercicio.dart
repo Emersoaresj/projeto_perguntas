@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:projeto_perguntas/questionario.dart';
 import 'package:projeto_perguntas/resultado.dart';
 
@@ -44,16 +45,47 @@ class _PerguntaAppState extends State<PerguntaApp> {
   ];
 
   Widget build(BuildContext context) {
+    final esquemaCores = ColorScheme.fromSeed(seedColor: Colors.deepPurple);
+
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(colorScheme: esquemaCores, useMaterial3: true),
       home: Scaffold(
-        appBar: AppBar(title: Text('Perguntas')),
-        body: temPerguntaselecionada
-            ? Questionario(
-                perguntas: _perguntas,
-                perguntaSelecionada: _perguntaSelecionada,
-                responder: _responder,
-              )
-            : Resultado(_pontuacaoTotal, reiniciarQuestionario),
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          title: const Text(
+            'Perguntas',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          centerTitle: true,
+          elevation: 0,
+          scrolledUnderElevation: 0,
+          backgroundColor: Colors.transparent,
+          systemOverlayStyle: SystemUiOverlayStyle.dark,
+        ),
+        body: Container(
+          width: double.infinity,
+          height: double.infinity,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                esquemaCores.primaryContainer,
+                esquemaCores.surface,
+              ],
+            ),
+          ),
+          child: SafeArea(
+            child: temPerguntaselecionada
+                ? Questionario(
+                    perguntas: _perguntas,
+                    perguntaSelecionada: _perguntaSelecionada,
+                    responder: _responder,
+                  )
+                : Resultado(_pontuacaoTotal, reiniciarQuestionario),
+          ),
+        ),
       ),
     );
   }
